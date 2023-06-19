@@ -13,8 +13,16 @@ public class App
     {
         LinkedList<Integer> list = new LinkedList<>();
 
+        MyList<String> test = new MyLinkedList<>();
+        test.addLast("10");
+        test.addLast("20");
+        test.addLast("30");
+        test.addFirst("40");
+
+        System.out.println(test);
 
 
-        System.out.println( "Hello World!" );
+        MyList<String> test2 = new MyLinkedList<>();
+        System.out.println(test2);
     }
 }
