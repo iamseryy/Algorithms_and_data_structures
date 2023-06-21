@@ -1,17 +1,19 @@
 package org.example.collection.impl;
 
 import org.example.collection.MyList;
+
+import java.util.Comparator;
 import java.util.Optional;
 
-public class MyLinkedList <E>  implements MyList {
+public class MyLinkedList<E>  implements MyList<E> {
     private Node head;
     private Node tail;
 
 
     @Override
-    public void addLast(Object item) {
+    public void addLast(E item) {
         var node = new Node<E>();
-        node.value = (E) item;
+        node.value = item;
         if(this.tail == null){
             this.head = node;
         }else{
@@ -22,9 +24,9 @@ public class MyLinkedList <E>  implements MyList {
     }
 
     @Override
-    public void addFirst(Object item) {
+    public void addFirst(E item) {
         var node = new Node<E>();
-        node.value = (E) item;
+        node.value = item;
         if(this.head == null){
             this.tail = node;
         }else{
@@ -59,7 +61,7 @@ public class MyLinkedList <E>  implements MyList {
 
         final var node = this.head;
         this.head = this.head.next;
-        return Optional.ofNullable((E) node.value);
+        return (Optional<E>) Optional.ofNullable(node.value);
     }
 
     @Override
@@ -70,7 +72,7 @@ public class MyLinkedList <E>  implements MyList {
 
         final var node = this.tail;
         this.tail = this.tail.prev;
-        return Optional.ofNullable((E) node.value);
+        return (Optional<E>) Optional.ofNullable(node.value);
     }
 
     @Override

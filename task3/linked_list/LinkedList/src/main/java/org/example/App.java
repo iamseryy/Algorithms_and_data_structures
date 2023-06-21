@@ -23,19 +23,5 @@ public class App
 
         System.out.println(people);
 
-        System.out.println(people.removeFirst().get());
-        System.out.println(people);
-
-
-        MyList<String> items = new MyLinkedList<>();
-        items.addFirst(null);
-        items.addFirst("20");
-        items.addFirst("30");
-
-        System.out.println(items.indexOf(null));
-
-        LinkedList<Integer> test = new LinkedList<>();
-test.sort();
-
     }
 }

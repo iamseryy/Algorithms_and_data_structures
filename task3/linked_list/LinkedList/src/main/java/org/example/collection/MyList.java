@@ -1,5 +1,6 @@
 package org.example.collection;
 
+import java.util.Comparator;
 import java.util.Optional;
 
 public interface MyList <E>{
