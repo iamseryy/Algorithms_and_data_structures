@@ -1,9 +1,9 @@
 package org.example;
 
 public class Tree {
-    Node root;
+    private Node root;
 
-    enum Color{
+    private enum Color{
         BLACK,
         RED
     }
@@ -13,8 +13,6 @@ public class Tree {
         Node left;
         Node right;
         Color color;
-
-
     }
 
     public Node find(int value){
@@ -35,35 +33,46 @@ public class Tree {
         }
     }
 
-    public void insert(int value){
+    public boolean add(int value){
         if(root == null){
             root = new Node();
             root.value = value;
-        }else {
-            insert(root, value);
-            root = balance(root);
+            root.color = Color.BLACK;
+            return true;
         }
 
+        boolean isAddedNote = addNote(root, value);
+        root = balance(root);
         root.color = Color.BLACK;
+
+        return isAddedNote;
     }
 
-    public void insert(Node node, int value){
-        if(node.value != value){
-            if(node.value < value){
-                if(node.right == null){
-                    node.right = new Node();
-                    node.right.value = value;
-                    node.right.color = Color.RED;
-                }else{
-                    insert(node.right, value);
-                }
-            }else{
-                if(node.left == null){
+    private boolean addNote(Node node, int value){
+        if(node.value == value){
+            return false;
+        } else {
+            if (node.value > value) {
+                if (node.left != null) {
+                    boolean result = addNote(node.left, value);
+                    node.left = balance(node.left);
+                    return result;
+                } else {
                     node.left = new Node();
-                    node.left.value = value;
                     node.left.color = Color.RED;
-                }else{
-                    insert(node.left, value);
+                    node.left.value = value;
+                    return true;
+                }
+            } else {
+                if(node.right != null){
+                    boolean result = addNote(node.right, value);
+                    node.right = balance(node.right);
+                    return result;
+                } else {
+                    node.right = new Node();
+                    node.right.color = Color.RED;
+                    node.right.value = value;
+                    return true;
                 }
             }
         }
@@ -79,24 +88,24 @@ public class Tree {
            if(balanceNode.right != null
                    && balanceNode.right.color == Color.RED
                    && (balanceNode.left == null || balanceNode.left.color == Color.BLACK)){
-               needBalance = true;
                balanceNode = rightTurn(balanceNode);
+               needBalance = true;
            }
 
             if(balanceNode.left != null
                     && balanceNode.left.color == Color.RED
                     && balanceNode.left.left != null
                     && balanceNode.left.left.color == Color.RED){
-                needBalance = true;
                 balanceNode = leftTurn(balanceNode);
+                needBalance = true;
             }
 
             if(balanceNode.left != null
                     && balanceNode.left.color == Color.RED
                     && balanceNode.right != null
                     && balanceNode.right.color == Color.RED){
-                needBalance = true;
                 colorSwap(balanceNode);
+                needBalance = true;
             }
         } while (needBalance);
 
